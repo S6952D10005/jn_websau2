@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Savora — ครัวนานาชาติ รวมจานเด่นจากไทย ญี่ปุ่น อิตาลี เกาหลี และตะวันตก"
+    />
+    <title>Savora — ครัวนานาชาติ รสชาติรอบโลกในหนึ่งมื้อ</title>
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%23933c24'/></svg>"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Sansita Swashed = หัวข้อตัวมีหาง, Inter = เนื้อหา
+         หมายเหตุ: ทั้งสองฟอนต์ไม่มีชุดอักษรไทย ข้อความไทยจะตกไปใช้ฟอนต์ของระบบ -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sansita+Swashed:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+      /* =========================================================
+         ตัวแปรสี - ดูดค่ามาจากภาพต้นแบบโดยตรง
+         ========================================================= */
+      :root {
+        --paper: #ffffff; /* พื้นส่วนสว่าง */
+        --ink: #141414; /* พื้นส่วนมืด */
+        --card: #1a1a1a; /* พื้นการ์ดเมนู */
+        --footer-bg: #101010;
+        --brick: #933c24; /* ปุ่มสีอิฐ */
+        --brick-dark: #7a3019;
+        --gold: #c29f78; /* สีทองใน footer */
+        --text-dark: #1c1c1c;
+        --muted-dark: #6f6f6f; /* ตัวหนังสือรองบนพื้นขาว */
+        --muted-light: rgba(255, 255, 255, 0.6); /* ตัวหนังสือรองบนพื้นมืด */
+        --line-light: rgba(0, 0, 0, 0.1);
+        --line-dark: rgba(255, 255, 255, 0.14);
+        --container: 1262px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background-color: var(--paper);
+        color: var(--text-dark);
+        font-family: "Inter", sans-serif;
+        font-weight: 300;
+        line-height: 1.8;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* ข้อความไทยไม่มีช่องว่างคั่นคำ บางคำจึงยาวเกินกรอบแล้วดันล้นออกไป
+         บรรทัดนี้บังคับให้ตัดคำได้เมื่อจำเป็น */
+      h1,
+      h2,
+      h3,
+      p,
+      li {
+        overflow-wrap: break-word;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* เนื้อหากว้าง 1262px = ขอบข้าง 89px ที่จอ 1440
+         บวก padding เข้าไปใน max-width ด้วย ไม่งั้นเนื้อหาจะถูกดันเข้ามาอีก */
+      .container {
+        width: 100%; /* จำเป็น: .hero เป็น flex column ถ้าไม่ใส่ margin auto จะทำให้กล่องหดตามเนื้อหา */
+        max-width: calc(var(--container) + 48px);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* =========================================================
+         หัวข้อตัวมีหาง
+         ไม่ใส่ font-style: italic เพราะ Sansita Swashed ไม่มีตัวเอียงจริง
+         เบราว์เซอร์จะเอียงปลอมให้ ซึ่งดูไม่ดีกับฟอนต์ตกแต่ง
+         ========================================================= */
+      .script {
+        font-family: "Sansita Swashed", cursive;
+        font-weight: 900;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .section-head {
+        text-align: center;
+        font-size: clamp(2rem, 3.3vw, 3rem);
+        margin-bottom: 34px;
+      }
+
+      /* =========================================================
+         ปุ่ม
+         ========================================================= */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background-color: var(--brick);
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: 14px 34px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition:
+          background-color 0.25s,
+          transform 0.2s;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        background-color: var(--brick-dark);
+        transform: translateY(-2px);
+      }
+
+      /* ลิงก์ตัวหนังสือข้างปุ่ม */
+      .btn-text {
+        font-size: 0.9rem;
+        color: var(--muted-light);
+        border-bottom: 1px solid transparent;
+        transition:
+          color 0.25s,
+          border-color 0.25s;
+      }
+
+      .btn-text:hover,
+      .btn-text:focus-visible {
+        color: #fff;
+        border-color: #fff;
+      }
+
+      /* =========================================================
+         รูปภาพ
+         ต้นฉบับ r1-r10 เป็น 16:9 ทุกไฟล์ ใช้ object-fit: cover
+         ครอปให้พอดีแต่ละช่อง โดยยึดกลางภาพ
+         ========================================================= */
+      /* ครอปเต็มกรอบ
+         กลุ่มแรกปล่อยให้ aspect-ratio คุมความสูง จึงห้ามใส่ height:100%
+         ไม่งั้นการ์ดที่ถูกกริดยืดให้สูงเท่ากันจะดึงรูปเสียสัดส่วน */
+      img.ph-dish,
+      img.ph-tile {
+        width: 100%;
+        object-fit: cover;
+      }
+
+      /* ห้ามรวม ph-thumb เข้ากลุ่มบน เพราะ img.ph-thumb มี specificity สูงกว่า
+         .ph-thumb แล้ว width:100% จะไปทับความกว้าง 70px ที่ตั้งไว้ */
+      img.ph-thumb {
+        object-fit: cover;
+      }
+
+      /* กลุ่มนี้เป็นช่องในกริดที่ต้องเต็มความสูงแถว */
+      img.ph-band,
+      img.promo-side {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* =========================================================
+         Hero
+         ========================================================= */
+      .hero {
+        position: relative;
+        /* สูงเต็มจอเสมอ ไม่ล็อกเป็น px เพราะจอแต่ละเครื่องสูงไม่เท่ากัน
+           svh = ความสูงจอตอนแถบ URL ของมือถือกางอยู่ กันไม่ให้ล้นจน scroll */
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        /* r10 เป็นรูปสว่าง (ท้องฟ้า+ผ้าปูขาว) ต้องมีชั้นมืดทับ
+           ไม่งั้นตัวหนังสือสีขาวจะอ่านไม่ออก */
+        background:
+          linear-gradient(
+            100deg,
+            rgba(12, 10, 9, 0.93) 0%,
+            rgba(12, 10, 9, 0.82) 45%,
+            rgba(12, 10, 9, 0.55) 100%
+          ),
+          url("images/r10.png") center / cover no-repeat,
+          #100d0c;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      /* แถบเมนูวางทับบน hero */
+      .nav {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        padding-top: 30px;
+      }
+
+      .nav-logo {
+        font-family: "Sansita Swashed", cursive;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--gold);
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 34px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.75);
+        transition: color 0.25s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible,
+      .nav-links a.is-active {
+        color: var(--gold);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* ใช้ longhand เท่านั้น ถ้าเขียน padding: 80px 0 110px แบบย่อ
+           จะไปทับ padding: 0 24px ของ .container ทำให้เนื้อหาชิดขอบจอ */
+        padding-top: 80px;
+        padding-bottom: 80px;
+      }
+
+      /* flex item ค่าเริ่มต้น min-width:auto จะหดต่ำกว่า min-content ไม่ได้
+         ทำให้ข้อความไทยยาว ๆ ดันล้นกรอบออกไป ต้องปลดล็อกด้วย min-width:0 */
+      .hero-inner > * {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .hero-label {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0 0 18px;
+      }
+
+      .hero-title {
+        font-size: clamp(1.9rem, 5.2vw, 4.7rem);
+        max-width: 13em;
+      }
+
+      .hero-desc {
+        margin: 24px 0 0;
+        max-width: 34em;
+        color: var(--muted-light);
+        font-size: 1rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        margin-top: 42px;
+        flex-wrap: wrap;
+      }
+
+      /* =========================================================
+         ส่วนสว่างทั่วไป
+         ========================================================= */
+      .section {
+        padding: 68px 0;
+      }
+
+      /* =========================================================
+         การ์ดเมนู (Top Products)
+         ========================================================= */
+      .dish-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .dish {
+        background-color: var(--card);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .ph-dish {
+        aspect-ratio: 4 / 3;
+        width: 100%;
+      }
+
+      .dish-body {
+        padding: 20px 22px 24px;
+      }
+
+      .dish-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--muted-light);
+        font-size: 0.85rem;
+        border-bottom: 1px solid var(--line-dark);
+        padding-bottom: 14px;
+      }
+
+      .dish-meta i {
+        font-size: 1.1rem;
+      }
+
+      .dish-foot {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .dish-name {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .dish-price {
+        display: block;
+        color: var(--gold);
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .btn-add {
+        background-color: var(--brick);
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        font-family: "Inter", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        padding: 8px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.25s;
+      }
+
+      .btn-add:hover,
+      .btn-add:focus-visible {
+        background-color: var(--brick-dark);
+      }
+
+      /* =========================================================
+         แบนเนอร์โปรโมชัน
+         ========================================================= */
+      .promo {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr minmax(0, 520px) 1fr;
+        align-items: stretch;
+        background-color: #f1ece6;
+        overflow: hidden;
+      }
+
+      .promo-side {
+        min-height: 340px;
+      }
+
+      .promo-body {
+        text-align: center;
+        padding: 46px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .promo-title {
+        font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+        color: var(--brick);
+      }
+
+      .promo-body p {
+        margin: 18px 0 28px;
+        color: #5d5148;
+        font-size: 0.95rem;
+        max-width: 30em;
+      }
+
+      /* =========================================================
+         Explore - แท็บหมวดหมู่ + ตารางรูป
+         ========================================================= */
+      .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 38px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--line-light);
+        padding-bottom: 16px;
+        margin-bottom: 46px;
+      }
+
+      .tab {
+        background: none;
+        border: none;
+        font-family: "Inter", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: var(--muted-dark);
+        padding: 0 0 10px;
+        margin-bottom: -17px;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        transition:
+          color 0.25s,
+          border-color 0.25s;
+      }
+
+      .tab:hover,
+      .tab:focus-visible {
+        color: var(--text-dark);
+      }
+
+      .tab.is-active {
+        color: var(--brick);
+        border-bottom-color: var(--brick);
+        font-weight: 500;
+      }
+
+      .tile-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      .ph-tile {
+        aspect-ratio: 4 / 3;
+        width: 100%;
+      }
+
+      /* =========================================================
+         แถบเกี่ยวกับร้าน (พื้นมืด มีรูปขนาบสองข้าง)
+         ========================================================= */
+      .about {
+        display: grid;
+        grid-template-columns: 1fr minmax(0, 560px) 1fr;
+        align-items: stretch;
+        background-color: var(--ink);
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .ph-band {
+        min-height: 380px;
+        width: 100%;
+      }
+
+      .about-body {
+        text-align: center;
+        padding: 56px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .about-body h2 {
+        font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+      }
+
+      .about-body p {
+        margin: 20px 0 30px;
+        color: var(--muted-light);
+        font-size: 0.95rem;
+        max-width: 32em;
+      }
+
+      /* =========================================================
+         Footer
+         ========================================================= */
+      .footer {
+        background-color: var(--footer-bg);
+        color: var(--muted-light);
+        padding: 52px 0 28px;
+        font-size: 0.9rem;
+      }
+
+      .footer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        padding-bottom: 30px;
+        border-bottom: 1px solid rgba(194, 159, 120, 0.3);
+      }
+
+      .footer-social {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .footer-social span {
+        font-size: 0.85rem;
+      }
+
+      .footer-social a {
+        color: var(--gold);
+        font-size: 1.15rem;
+        transition: transform 0.2s;
+      }
+
+      .footer-social a:hover,
+      .footer-social a:focus-visible {
+        transform: translateY(-2px);
+      }
+
+      .footer-cols {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr 1.3fr;
+        gap: 40px;
+        padding: 34px 0 30px;
+      }
+
+      .footer-cols h3 {
+        font-family: "Sansita Swashed", cursive;
+        font-weight: 700;
+        color: var(--gold);
+        font-size: 1.25rem;
+        margin: 0 0 20px;
+      }
+
+      .footer-cols ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-cols li + li {
+        margin-top: 10px;
+      }
+
+      .footer-cols a:hover,
+      .footer-cols a:focus-visible {
+        color: var(--gold);
+      }
+
+      /* ข่าวล่าสุด - รูปเล็ก + ข้อความ */
+      .news {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+      }
+
+      .news + .news {
+        margin-top: 18px;
+      }
+
+      .ph-thumb {
+        width: 70px;
+        height: 62px;
+        flex: none;
+      }
+
+      .news-date {
+        display: block;
+        color: var(--gold);
+        font-size: 0.75rem;
+      }
+
+      .news p {
+        margin: 2px 0 0;
+        line-height: 1.5;
+        font-size: 0.9rem;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        font-size: 0.82rem;
+        padding-top: 28px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      /* =========================================================
+         Responsive
+         ========================================================= */
+      @media (max-width: 1000px) {
+        .dish-grid,
+        .tile-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .footer-cols {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* แบนเนอร์: ซ่อนรูปข้างหนึ่ง เหลือรูปเดียวขนาบ */
+        .promo,
+        .about {
+          grid-template-columns: 1fr minmax(0, 520px);
+        }
+
+        .promo-side:last-of-type,
+        .about > .ph-band:last-of-type {
+          display: none;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .nav-links {
+          justify-content: center;
+          gap: 22px;
+        }
+
+        .section {
+          padding: 48px 0;
+        }
+
+        .dish-grid,
+        .tile-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* แบนเนอร์: วางรูปไว้ด้านบน แล้วข้อความอยู่ล่าง */
+        .promo,
+        .about {
+          grid-template-columns: 1fr;
+        }
+
+        .promo-side,
+        .about > .ph-band {
+          min-height: 220px;
+        }
+
+        .footer-cols {
+          grid-template-columns: 1fr;
+          gap: 34px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===================== Hero ===================== -->
+    <header class="hero">
+      <div class="container nav">
+        <a href="#" class="nav-logo">Savora</a>
+        <nav class="nav-links">
+          <a href="#" class="is-active">หน้าแรก</a>
+          <a href="#menu">เมนู</a>
+          <a href="#explore">หมวดอาหาร</a>
+          <a href="#about">เกี่ยวกับเรา</a>
+          <a href="#contact">ติดต่อ</a>
+        </nav>
+      </div>
+
+      <div class="container hero-inner">
+        <p class="hero-label">ครัวนานาชาติ · เปิดทุกวัน</p>
+        <h1 class="script hero-title">รสชาติรอบโลก<br />ในหนึ่งมื้อเดียว</h1>
+        <p class="hero-desc">
+          จากต้มยำกุ้งรสจัดจ้าน ถึงพาสต้าทรัฟเฟิลและซูชิจานสด
+          เราคัดวัตถุดิบใหม่ทุกเช้า แล้วปรุงตามสูตรเฉพาะของแต่ละครัว
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#menu">ดูเมนูทั้งหมด</a>
+          <a class="btn-text" href="#contact">จองโต๊ะล่วงหน้า</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===================== เมนูแนะนำ ===================== -->
+      <section class="section" id="menu">
+        <div class="container">
+          <h2 class="script section-head">เมนูแนะนำ</h2>
+
+          <div class="dish-grid">
+            <!-- การ์ดที่ 1 -->
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r1.png"
+              loading="lazy"
+              alt="ต้มยำกุ้งน้ำข้นในหม้อดินร้อน"
+            />
+              <div class="dish-body">
+                <div class="dish-meta">
+                  <span>จานเดียว · เผ็ดกลาง</span>
+                  <i class="bi bi-heart"></i>
+                </div>
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    ต้มยำกุ้งน้ำข้น
+                    <span class="dish-price">180 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- การ์ดที่ 2 -->
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r5.png"
+              loading="lazy"
+              alt="ซาชิมิและซูชิรวมจัดจาน"
+            />
+              <div class="dish-body">
+                <div class="dish-meta">
+                  <span>ญี่ปุ่น · ของสด</span>
+                  <i class="bi bi-heart"></i>
+                </div>
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    ซาชิมิรวมจานพิเศษ
+                    <span class="dish-price">420 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- การ์ดที่ 3 -->
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r4.png"
+              loading="lazy"
+              alt="พาสต้าครีมเห็ดทรัฟเฟิล"
+            />
+              <div class="dish-body">
+                <div class="dish-meta">
+                  <span>อิตาเลียน · ไม่เผ็ด</span>
+                  <i class="bi bi-heart"></i>
+                </div>
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    พาสต้าครีมทรัฟเฟิล
+                    <span class="dish-price">2180 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- การ์ดที่ 4 -->
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r7.png"
+              loading="lazy"
+              alt="สลัดควินัวอโวคาโดผักสด"
+            />
+              <div class="dish-body">
+                <div class="dish-meta">
+                  <span>สลัด · เพื่อสุขภาพ</span>
+                  <i class="bi bi-heart"></i>
+                </div>
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    สลัดควินัวอโวคาโด
+                    <span class="dish-price">90 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- การ์ดที่ 5 -->
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r3.png"
+              loading="lazy"
+              alt="ชีสเบอร์เกอร์เนื้อเสิร์ฟพร้อมเฟรนช์ฟรายส์"
+            />
+              <div class="dish-body">
+                <div class="dish-meta">
+                  <span>ตะวันตก · จานหนัก</span>
+                  <i class="bi bi-heart"></i>
+                </div>
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    ชีสเบอร์เกอร์เนื้อวากิว
+                    <span class="dish-price">180 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- การ์ดที่ 6 -->
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r6.png"
+              loading="lazy"
+              alt="พิซซ่ามาร์เกอริต้าอบเตาฟืน"
+            />
+              <div class="dish-body">
+                <div class="dish-meta">
+                  <span>อิตาเลียน · แบ่งกันทาน</span>
+                  <i class="bi bi-heart"></i>
+                </div>
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    พิซซ่ามาร์เกอริต้า
+                    <span class="dish-price">260 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== แบนเนอร์โปรโมชัน ===================== -->
+      <section class="promo">
+        <img
+          class="promo-side"
+          src="images/r8.png"
+          loading="lazy"
+          alt="ข้าวเหนียวมะม่วง"
+        />
+
+        <div class="promo-body">
+          <h2 class="script promo-title">ลด 25%<br />สำหรับออเดอร์แรก</h2>
+          <p>
+            สมัครสมาชิกวันนี้ รับส่วนลดทันทีสำหรับการสั่งครั้งแรก
+            พร้อมสิทธิ์รับเมนูของหวานฟรีเมื่อทานที่ร้าน
+          </p>
+          <a class="btn" href="#contact">ดูรายละเอียด</a>
+        </div>
+
+        <img
+          class="promo-side"
+          src="images/r2.png"
+          loading="lazy"
+          alt="แซลมอนย่างกับผักรวม"
+        />
+      </section>
+
+      <!-- ===================== สำรวจเมนู ===================== -->
+      <section class="section" id="explore">
+        <div class="container">
+          <h2 class="script section-head">สำรวจเมนู</h2>
+
+          <div class="tabs">
+            <button class="tab is-active" type="button">ทั้งหมด</button>
+            <button class="tab" type="button">จานหลัก</button>
+            <button class="tab" type="button">เส้น &amp; พาสต้า</button>
+            <button class="tab" type="button">สลัด</button>
+            <button class="tab" type="button">ปิ้งย่าง</button>
+            <button class="tab" type="button">ของหวาน</button>
+          </div>
+
+          <div class="tile-grid">
+            <img
+              class="ph-tile"
+              src="images/r9.png"
+              loading="lazy"
+              alt="ปิ้งย่างเกาหลี"
+            />
+            <img
+              class="ph-tile"
+              src="images/r2.png"
+              loading="lazy"
+              alt="แซลมอนย่าง"
+            />
+            <img
+              class="ph-tile"
+              src="images/r7.png"
+              loading="lazy"
+              alt="สลัดผักสด"
+            />
+            <img
+              class="ph-tile"
+              src="images/r3.png"
+              loading="lazy"
+              alt="เบอร์เกอร์เนื้อ"
+            />
+            <img
+              class="ph-tile"
+              src="images/r8.png"
+              loading="lazy"
+              alt="ข้าวเหนียวมะม่วง"
+            />
+            <img
+              class="ph-tile"
+              src="images/r4.png"
+              loading="lazy"
+              alt="พาสต้าทรัฟเฟิล"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== เกี่ยวกับร้าน ===================== -->
+      <section class="about" id="about">
+        <img
+          class="ph-band"
+          src="images/r9.png"
+          loading="lazy"
+          alt="บรรยากาศโต๊ะปิ้งย่างของร้าน"
+        />
+
+        <div class="about-body">
+          <h2 class="script">เรื่องราวของเรา</h2>
+          <p>
+            Savora เริ่มจากความคิดง่าย ๆ ว่าอาหารดี ๆ ไม่ควรถูกกั้นด้วยพรมแดน
+            เราจึงรวมเชฟจากห้าครัวไว้ในที่เดียว ทั้งไทย ญี่ปุ่น อิตาลี เกาหลี
+            และตะวันตก โดยยืนยันเหมือนเดิมว่าทุกจานต้องปรุงสดเมื่อสั่ง
+          </p>
+          <a class="btn" href="#">อ่านเพิ่มเติม</a>
+        </div>
+
+        <img
+          class="ph-band"
+          src="images/r6.png"
+          loading="lazy"
+          alt="พิซซ่าอบจากเตาฟืน"
+        />
+      </section>
+
+      <!-- ===================== จานเด่นประจำร้าน ===================== -->
+      <section class="section">
+        <div class="container">
+          <h2 class="script section-head">จานเด่นประจำร้าน</h2>
+
+          <div class="tile-grid">
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r8.png"
+              loading="lazy"
+              alt="ข้าวเหนียวมะม่วงน้ำกะทิสด"
+            />
+              <div class="dish-body">
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    ข้าวเหนียวมะม่วง
+                    <span class="dish-price">120 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r9.png"
+              loading="lazy"
+              alt="ปิ้งย่างเกาหลีพร้อมเครื่องเคียง"
+            />
+              <div class="dish-body">
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    ปิ้งย่างเกาหลีรวมมิตร
+                    <span class="dish-price">590 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="dish">
+              <img
+              class="ph-dish"
+              src="images/r2.png"
+              loading="lazy"
+              alt="สเต๊กแซลมอนย่างกับผักรวม"
+            />
+              <div class="dish-body">
+                <div class="dish-foot">
+                  <h3 class="dish-name">
+                    แซลมอนย่างซอสเลมอน
+                    <span class="dish-price">380 บาท</span>
+                  </h3>
+                  <button class="btn-add" type="button">สั่ง</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="footer" id="contact">
+      <div class="container">
+        <div class="footer-top">
+          <span class="nav-logo">Savora</span>
+          <div class="footer-social">
+            <span>ติดตามเรา</span>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"
+              ><i class="bi bi-instagram"></i
+            ></a>
+            <a href="#" aria-label="LINE"><i class="bi bi-line"></i></a>
+            <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-cols">
+          <div>
+            <h3>ติดต่อเรา</h3>
+            <ul>
+              <li>โทร 02-123-4567</li>
+              <li>hello@savora.co.th</li>
+              <li>88 ถนนสุขุมวิท แขวงคลองเตย</li>
+              <li>เขตคลองเตย กรุงเทพฯ 10110</li>
+              <li>เปิดทุกวัน 10:00 – 22:00 น.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>เมนูลัด</h3>
+            <ul>
+              <li><a href="#">หน้าแรก</a></li>
+              <li><a href="#menu">เมนูอาหาร</a></li>
+              <li><a href="#about">เกี่ยวกับเรา</a></li>
+              <li><a href="#">จองโต๊ะ</a></li>
+              <li><a href="#">ร่วมงานกับเรา</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>ข่าวจากร้าน</h3>
+
+            <div class="news">
+              <img
+                class="ph-thumb"
+                src="images/r7.png"
+                loading="lazy"
+                alt="สลัดผักสด"
+              />
+              <div>
+                <span class="news-date">12 ก.ย. 2569</span>
+                <p>เปิดตัวเมนูใหม่จากครัวเมดิเตอร์เรเนียน</p>
+              </div>
+            </div>
+
+            <div class="news">
+              <img
+                class="ph-thumb"
+                src="images/r10.png"
+                loading="lazy"
+                alt="มื้อเช้าริมทะเล"
+              />
+              <div>
+                <span class="news-date">28 ส.ค. 2569</span>
+                <p>ขยายเวลาเปิดร้านถึงสี่ทุ่มทุกวันศุกร์–เสาร์</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          &copy; 2026 Savora · จัดทำเพื่อการศึกษาโดย NinniN SAU
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
